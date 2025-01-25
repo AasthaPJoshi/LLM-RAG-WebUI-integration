@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAMES SILBERRAD BROWN CENTER FOR ARTIFICIAL INTELLIGENCE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div id="header">
+    <h1>JAMES SILBERRAD BROWN CENTER FOR ARTIFICIAL INTELLIGENCE</h1>
+</div>
+
+<div id="container">
+    <div id="gif-container">
+        <img src="{{ url_for('static', filename='ai.gif') }}" alt="AI GIF" class="centered-gif">
+    </div>
+
+    <div id="conversation"></div>
+</div>
+
+<script>
+    let lastMessageIndex = 0;
+
+    function updateConversation() {
+        fetch('/history')
+            .then(response => response.json())
+            .then(data => {
+                const conversationDiv = document.getElementById('conversation');
+                
+                // Remove the GIF when the first conversation loads
+                if (!conversationDiv.children.length && data.length > 0) {
+                    document.getElementById('gif-container').style.display = 'none';
+                }
+
+                // Only append new messages
+                for (let i = lastMessageIndex; i < data.length; i++) {
+                    const msg = data[i];
+                    const msgDiv = document.createElement('div');
+                    msgDiv.classList.add('message-container');
+                    msgDiv.classList.add(msg.mode === 'regular' ? 'regular-mode' : 'rag-mode');
+                    
+                    // Add mode title once
+                    if (i === lastMessageIndex || msg.mode !== data[i - 1].mode) {
+                        const modeTitleDiv = document.createElement('div');
+                        modeTitleDiv.classList.add('message-title');
+                        modeTitleDiv.textContent = msg.mode === 'regular' ? 'REGULAR MODE' : 'RAG MODE';
+                        conversationDiv.appendChild(modeTitleDiv);
+                    }
+
+                    // Add message content
+                    msgDiv.innerHTML = `<div class="message-content"><strong>${msg.sender}:</strong> ${msg.text}</div>`;
+                    conversationDiv.appendChild(msgDiv);
+                }
+
+                lastMessageIndex = data.length; // Update the last message index
+            });
+    }
+
+    setInterval(updateConversation, 2000); // Update conversation every 2 seconds
+</script>
+
+</body>
+</html>

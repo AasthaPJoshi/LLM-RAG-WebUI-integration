@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF; /* Matching the GIF's background color */
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px; /* Added margin to move the content down */
+}
+
+#header h1 {
+    font-size: 26px; /* Adjust font size to fit on a single line */
+    color: black;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    white-space: nowrap; /* Prevent line breaks within the text */
+}
+
+#gif-container {
+    margin: 20px 0; /* Space above and below the GIF */
+}
+
+.centered-gif {
+    width: 400px; /* Increase size for better aesthetics */
+    height: auto; /* Maintain aspect ratio */
+    background-color: #FFFFFF; /* Matching GIF background color */
+}
+
+#conversation {
+    text-align: left; /* Align conversations to the left */
+    margin-top: 20px;
+    width: 100%;
+}
+
+.message-container {
+    border: 2px solid;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.regular-mode {
+    border-color: blue;
+    background-color: #e7f3fe;
+}
+
+.rag-mode {
+    border-color: red;
+    background-color: #fce4e4;
+}
+
+.message-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.message-content {
+    font-size: 16px;
+}
